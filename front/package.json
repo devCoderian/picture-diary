@@ -1,0 +1,31 @@
+{
+  "name": "picture-diary-front",
+  "version": "1.0.0",
+  "description": "그림일기 사이트",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devCoderian/picture-diary.git"
+  },
+  "author": "devcoderian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/devCoderian/picture-diary/issues"
+  },
+  "homepage": "https://github.com/devCoderian/picture-diary#readme",
+  "dependencies": {
+    "next": "^9.5.5",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
+}
