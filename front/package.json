@@ -18,14 +18,52 @@
   },
   "homepage": "https://github.com/devCoderian/picture-diary#readme",
   "dependencies": {
+    "bootstrap": "^5.1.3",
+    "dayjs": "^1.10.7",
     "next": "^9.5.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-bootstrap": "^2.0.2",
+    "react-bootstrap-icons": "^1.6.1",
+    "react-datepicker": "^4.3.0",
+    "react-dom": "^17.0.2",
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "eslint": "^8.3.0",
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0"
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "production": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": false
+            }
+          ]
+        ]
+      }
+    }
   }
 }
