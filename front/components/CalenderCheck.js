@@ -13,9 +13,10 @@ const CalendarBox = styled.div`
 @media screen and (max-width: 960px) {
   display:none;
 }
+background: #fff;
 margin-top: 30px;
 border: 1px solid lightgray;
-border-radius: 5px;
+border-radius: 10px;
 padding: 5px 10px;
 min-width: 300px;
 `
@@ -74,26 +75,23 @@ const StyledBody = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 23px;
-    height: 23px;
   }
   .selected{
-    width: 23px;
-    height: 23px;
     border-radius: 50%;
-    background : pink;
-    font-weight: 700;
-    color: #292929;
+    background :#5A6D79;
+    font-weight: 500;
+    color: #fff;
   }
   .today{
-    border:1px solid pink;
+    border:1px solid #5A6D79;
     border-radius: 50%;
     font-weight: 500;
     background : #fff;
+    color:#5A6D79;
   }
   .isSelected{
     position: relative;
-    color: pink;
+    color: #5A6D79;
     font-size: 10px;
     font-weight: 400;
   }
@@ -121,10 +119,12 @@ const StyledHeader = styled.div`
     line-height: 24px;
   }
   button{
+    width:30px;
+    height:30px;
     border: none;
     border-radius: 50%;
     margin:0 10px;
-    background: pink;
+    background: #5A6D79;
     color: #fff
   }
   button svg{

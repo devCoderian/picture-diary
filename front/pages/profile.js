@@ -3,7 +3,9 @@ import Layout from '../components/Layout';
 
 const Profile = () =>{
     return (
-        <Layout>Hello, Profile</Layout>
+        <Layout>
+            
+        </Layout>
     );
 }
 export default Profile;

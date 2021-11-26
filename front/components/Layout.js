@@ -7,6 +7,8 @@ import CalenderCheck from './CalenderCheck';
 import DiaryPost from './DiaryPost';
 import styled from "styled-components";
 import DiaryForm from './DiaryForm';
+import UserProfile from './UserProfile';
+import { useState } from 'react';
 
 
 const Header = styled.div`
@@ -19,50 +21,43 @@ const Header = styled.div`
     margin-top: 45px;
     border-bottom : 1px solid lightgray;
     .logo{
-        margin-top: 7px;
         width: 10%;
     }
     #inputSearch{
-        width: 40%;
+        width: 30%;
     }
     .signinBtn{
         margin-left: auto;
     }
+    button{
+        background: #fff;
+    }
+
+    .logo a {color: gray; text-decoration: none; outline: none; font-size: 22px;}
     .logo a:hover, a:active {text-decoration: none; color:black;}
     a {color: gray; text-decoration: none; outline: none}
-
-    a:hover, a:active {text-decoration: none; color:#fff ;}
+    a:hover, a:active {text-decoration: none; }
 `
 
-// const Menu = styled.div`
-//     border-bottom : 1px solid lightgray;
-//     margin-bottom: 25px;
-//     a {color: gray; text-decoration: none; outline: none}
-//     a:hover, a:active {text-decoration: none; color:black;}
-//     .col-sm{
-//         margin-left: 200px;
-//         margin-bottom: 18px;
-//     }
-//     .col-sm a{
-//         text-decoration: none;
-//         color: black;
-//     }
-// `
-
-const Contents = styled.div`
-    margin-bottom: 100px;
+const LayoutStyle = styled.div`
+   background: #fff;
 
 `
- // margin: 0 auto;
+// background: #F1F0F0;
+
  const Layout = ({ children }) =>{
+
+  const [isLogin, setIsLogin] = useState(false);
+  const [me, setMe] = useState('');
     return (
-        <>
+        <LayoutStyle>
         <Container>
            <Stack gap={4}>
                <div>
                 <Row>
                 <Header>
-                    <div className="logo"><Brush/> <Link href ="/">그림일기</Link></div>
+                    {/* <div className="logo"><Brush/> 🖼️<Link href ="/">그림일기</Link></div> */}
+                    <div className="logo"><Link href ="/">🖼️-diary</Link></div>
                     <InputGroup className="mb-3" id="inputSearch">
                         <FormControl
                         placeholder="search"
@@ -70,9 +65,13 @@ const Contents = styled.div`
                         />
                     </InputGroup>
                     <div className="signinBtn">
-                    <Button variant="outline-secondary" type="submit">
-                    <Link href ="/signup">sign up</Link>
+                   
+                    <Link href ="/signup"> 
+                    <Button variant="outline-dark" type="submit">
+                        가입하기
                     </Button>
+                    </Link>
+                    
                     </div>
                     </Header>        
                 </Row>
@@ -87,7 +86,6 @@ const Contents = styled.div`
                 </Menu> */}
                 </div>  
                 </Stack>
-                <Contents>
                 <Row>
                     <Col xl ={8} lg ={8} md ={12}>
                     {children}
@@ -95,14 +93,13 @@ const Contents = styled.div`
              
                     <Col xl ={4} lg ={4} md ={0} >
                     <Row >
-                    <LoginForm />
+                        {isLogin ? <UserProfile me={me} />:  <LoginForm setIsLogin={setIsLogin} setMe={setMe}/>}
                     <CalenderCheck/>
                     </Row>
                     </Col>
                 </Row>
-            </Contents>
             </Container>
-        </>
+        </LayoutStyle>
     )
 }
 
