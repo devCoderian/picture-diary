@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { Container, Row, Col, InputGroup, FormControl, Button, Stack } from 'react-bootstrap';
-import {Brush} from 'react-bootstrap-icons';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from './LoginForm';
 import CalenderCheck from './CalenderCheck';
 import DiaryPost from './DiaryPost';
@@ -9,6 +7,7 @@ import styled from "styled-components";
 import DiaryForm from './DiaryForm';
 import UserProfile from './UserProfile';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 
 const Header = styled.div`
@@ -47,8 +46,7 @@ const LayoutStyle = styled.div`
 
  const Layout = ({ children }) =>{
 
-  const [isLogin, setIsLogin] = useState(false);
-  const [me, setMe] = useState('');
+    const {me} = useSelector(state => state.user);
     return (
         <LayoutStyle>
         <Container>
@@ -93,7 +91,7 @@ const LayoutStyle = styled.div`
              
                     <Col xl ={4} lg ={4} md ={0} >
                     <Row >
-                        {isLogin ? <UserProfile me={me} />:  <LoginForm setIsLogin={setIsLogin} setMe={setMe}/>}
+                        {me ? <UserProfile />:  <LoginForm/>}
                     <CalenderCheck/>
                     </Row>
                     </Col>

@@ -1,11 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import CommentForm from './CommentForm'
-import { Badge, Button, Stack } from 'react-bootstrap';
 const CommentBox = styled.div`
 overflow-y:scroll;
 width: 100%;
-height: 250px;
+height: 300px;
 background: #fff;
 border-bottom: 1px solid lightgray;
 
@@ -24,11 +23,9 @@ function Comment() {
     return (
         <>
         <CommentBox>
-            
         {Array.from({ length: 20 }).map((_, idx) => (
-            <h6><Badge bg="secondary">{idx}nickname</Badge><span>{idx}댓글입니다</span></h6>
+            <h6>{idx}nickname<span>{idx} 댓글입니다</span></h6>
         ))}
-
         </CommentBox>
            
             <CommentForm />

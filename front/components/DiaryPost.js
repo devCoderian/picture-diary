@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import styled from "styled-components";
 import Comment from './Comment';
 import DiaryForm from './DiaryForm';
+import FollowButton from './FollowButton';
+import ImgZoom from './ImgZoom';
+
 const StyledDiray = styled.div`
 .header{
   margin-bottom: 15px;
@@ -14,7 +17,7 @@ const StyledDiray = styled.div`
 
 .post{
   display:flex;
-  height: 400px;
+  height: 450px;
   border: 1px solid lightgray;
   border-radius: 10px;
   background: #fff;
@@ -23,13 +26,13 @@ const StyledDiray = styled.div`
 .img-box {
   width: 60%;
   border-radius: 10px 0px 0px 10px;
-  height: 400px;
+  height: 450px;
   position: relative;
 }
 .img-box img{
-  border-radius: 10px 0px 0px 10px;
+  border-radius: 0px 0px 0px 10px;
   width: 100%;
-  height: 100%;
+  height: 80%;
   object-fit: none
   
 }
@@ -37,21 +40,27 @@ const StyledDiray = styled.div`
   width:40%;
 }
 .content {
-  width: 75%;
+  width: 100%;
   height: 20%;
-  position: absolute;
-  bottom: 40px;
-  right: 50px;
   background: rgba(240, 240, 240, 0.7);
-  border-radius:5px;
+  padding:10px 15px;
 }
 
-.content div{
-  margin:5px 10px;
-}
 `
+
+// position: absolute;
+// bottom: 40px;
+// right: 50px;
 function DiaryPost() {
-    return (
+  const image = '/image/ediya.png';
+  const [imgZoom, setImgZoom] = useState(false);
+  const onZoom = useCallback(() => {
+      setImgZoom(true);
+    },[]);
+  const onClose = useCallback(() => {
+      setImgZoom(false);
+      },[])
+  return (
       <>
       <DiaryForm />
       <StyledDiray>
@@ -62,8 +71,12 @@ function DiaryPost() {
         {Array.from({ length: 2 }).map((_, idx) => (
               <section class ="post">
               <div className ="img-box">
-              <img src ='/image/ediya.png' alt= "그림"/>
-              {/* <div className = "content"><div>오늘 순호랑 치킨 먹어요</div></div> */}
+              <div className = "content">
+                <FollowButton />
+                <div className="content-text">제목</div>
+              </div>
+              <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
+              {imgZoom && <ImgZoom image = {image} onClose= {onClose} />}
               </div>
               <div className ="text-box">
                 <Comment /> 

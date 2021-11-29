@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Row, Col, InputGroup, Badge, Button, Stack } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const StyledCommentForm = styled.div`

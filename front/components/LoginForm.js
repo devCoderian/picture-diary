@@ -1,15 +1,9 @@
-import React, { useState } from 'react'
-import { Form , Button, Container, Row, Col} from 'react-bootstrap'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Form ,Button} from 'react-bootstrap'
 import styled from 'styled-components'
 import useInput from '../hooks/useInput'
-
-const LoginBtn = styled.button`
-background: #fff;
-border: 1px solid lightgray;
-border-radius: 5px;
-float:right;
-padding: 5px 10px;
-`
+import { loginRequestAction } from '../reducers/user'
+import { useDispatch, useSelector } from 'react-redux';
 
 const LoginBox = styled.div`
 @media screen and (max-width: 960px) {
@@ -25,16 +19,22 @@ button{
   width:100%;
 }
 `
-function LoginForm({setIsLogin, setMe}) {
-
+function LoginForm() {
+  const dispatch = useDispatch(); 
+  const { loginLoading, logInError } = useSelector((state) => state.user);
   const [email, onChangeEmail] = useInput('');
-  const [password, onChangeePassword] = useInput('');
+  const [password, onChangePassword] = useInput('');
+ //back단 에러
+    useEffect(() => {
+        if(logInError)
+        alert(logInError)
+       
+    }, [logInError]);
 
-  const onSubmit = (e) => {
+  const onSubmit = useCallback((e) => {
     e.preventDefault();
-    setMe(email);
-    setIsLogin(true);
-  }
+    dispatch(loginRequestAction({email,password}))
+  },[email, password]);
     return (
         <>
         <LoginBox>
@@ -49,7 +49,7 @@ function LoginForm({setIsLogin, setMe}) {
       
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" value = {password} onChange ={onChangeePassword} />
+          <Form.Control type="password" placeholder="Password" value = {password} onChange ={onChangePassword} />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
     
