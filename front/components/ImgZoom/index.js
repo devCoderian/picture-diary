@@ -21,8 +21,8 @@ const StyledZoom = styled.div`
         object-fit: cover;
         width: 100%;
     }
-`
 
+`
 
 
 function ImgZoom({ image, onClose }) {

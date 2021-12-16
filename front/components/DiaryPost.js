@@ -4,7 +4,6 @@ import Comment from './Comment';
 import DiaryForm from './DiaryForm';
 import FollowButton from './FollowButton';
 import ImgZoom from './ImgZoom';
-
 const StyledDiray = styled.div`
 .header{
   margin-bottom: 15px;
@@ -65,22 +64,22 @@ function DiaryPost() {
       <DiaryForm />
       <StyledDiray>
      
-        <div class="header">
+        <div className="header">
           <h1>👁️‍🗨️ 다른 사람의 일기가 궁금한가요?</h1>
         </div>
-        {Array.from({ length: 2 }).map((_, idx) => (
-              <section class ="post">
-              <div className ="img-box">
-              <div className = "content">
-                <FollowButton />
-                <div className="content-text">제목</div>
-              </div>
-              <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
-              {imgZoom && <ImgZoom image = {image} onClose= {onClose} />}
-              </div>
-              <div className ="text-box">
-                <Comment /> 
-              </div>
+        {Array.from({ length: 2 }).map((_, i) => (
+              <section className ="post" key = {i+'post'}>
+                <div className ="img-box">
+                  <div className = "content">
+                    <FollowButton />
+                    {/* <div className="content-text">제목</div> */}
+                  </div>
+                  <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
+                  {imgZoom && <ImgZoom image = {image} onClose= {onClose} />}
+                </div>
+                <div className ="text-box">
+                  <Comment /> 
+                </div>
               </section>
         ))}
         </StyledDiray>

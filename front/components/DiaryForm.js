@@ -18,7 +18,13 @@ position: relative;
 button{
     background: #F1F0F0;
 }
-
+#formFile{
+    display: flex;
+    justify-content: space-between; 
+}
+#file{
+    width: 80%;
+}
 `
 function DiaryForm() {
     const dispatch = useDispatch();
@@ -38,6 +44,9 @@ function DiaryForm() {
           });
     },[title]);
 
+    const onClickImageUpload = () => {
+
+    }
     return (
         <>
         <StyledDirayForm>
@@ -46,8 +55,13 @@ function DiaryForm() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
                     <Form.Control as="textarea" rows={1} value = {title} onChange = {(e) => setTitle(e.target.value)} placeholder="일기의 제목을 적어주세요" />
             </Form.Group>
-            <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Control type="file"/>
+            <Form.Group controlId="formFile" className="mb-3" id="formFile">
+                    <Form.Control type="file"  id="file"/>
+                    <div className ="submitBtn">
+                        <Button variant="outline-secondary"  onClick = {onClickImageUpload}>
+                            이미지 업로드
+                        </Button>
+                    </div>
             </Form.Group>
         
             

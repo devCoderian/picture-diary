@@ -172,7 +172,7 @@ const CalenderCheck = () =>{
               return (
                 <>
                 
-                  <div className={`box`} key={`${week}_${i}`} >
+                  <div className={`box`} key={`${week+i}`} >
                     <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
                       <span className={`day`}>{current.format('D')}</span>
                       {isToday ? (<span className="isToday">오늘</span>)
