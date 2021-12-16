@@ -1,30 +1,32 @@
-import { all, fork, takeLatest } from 'redux-saga/effects'
+import { all, fork, takeLatest, call, put } from 'redux-saga/effects'
 import axios from "axios";
-function loginAPI(data){
-    return axios.get('/', data);
+import { ADD_POST_FAILURE, ADD_POST_REQUEST, ADD_POST_SUCCESS } from '../reducers/post';
+function addPostAPI(data){
+    return axios.post('/post', {content: data});
 }
 
-function* logIn(action){
-    const result = yield call(loginAPI, action.data); 
+function* addPost(action){
+    const result = yield call(addPostAPI, action.data); 
     try {
         yield put({
-            type: 'LOGIN_SUCCEESS',
-            data: result.data
+            type: ADD_POST_SUCCESS,
+            data:result.data
         });
     } catch (error) {
         console.error(error);
         yield put({ 
-            type: 'LOGIN_FAILURE',
+            type: ADD_POST_FAILURE,
             data: error.response.data
         });
     }
 }
 
-// function* watchLogin(){  
-//     yield takeLatest('LOG_IN_REQUEST', logIn); 
-// }
+function* watchAddPost(){
+    yield takeLatest(ADD_POST_REQUEST, addPost);
+}
 
 export default function* postSaga(){
     yield all([
+        fork(watchAddPost),
     ])
 }
