@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
 import { Form, Button } from 'react-bootstrap';
 import styled from 'styled-components';
-import { ADD_POST_REQUEST } from '../reducers/post';
+import { ADD_POST_REQUEST, UPLOAD_IMAGE_REQUEST } from '../reducers/post';
 import { useDispatch } from 'react-redux';
 
 const StyledDirayForm = styled.div`
@@ -19,12 +19,17 @@ button{
     background: #F1F0F0;
 }
 #formFile{
-    display: flex;
-    justify-content: space-between; 
+    // display: flex;
+    // justify-content: space-between; 
+    width: 100%;
 }
-#file{
-    width: 80%;
+#formFile button{
+ 
+    width: 100%;
 }
+// #file{
+//     width: 80%;
+// }
 `
 function DiaryForm() {
     const dispatch = useDispatch();
@@ -36,7 +41,6 @@ function DiaryForm() {
             return alert('게시글을 작성하세요.');
           }
           const formData = new FormData();
-          console.log(formData);
           formData.append('content', title);
           return dispatch({
             type: ADD_POST_REQUEST,
@@ -44,9 +48,21 @@ function DiaryForm() {
           });
     },[title]);
 
-    const onClickImageUpload = () => {
+    const imageInput = useRef()
+    const onClickImageUpload = useCallback(() => {
+        imageInput.current.click();
+    },[imageInput.current]);
 
-    }
+    const onChangeImage = useCallback((e) => {
+        console.log('image', e.target.files);
+        //multer처리를 위해 multipart형식으로 보내야 한다
+        const imageFormData = new FormData();
+        imageFormData.append('image', e.target.files[0]);
+        dispatch({
+            type: UPLOAD_IMAGE_REQUEST,
+            data: imageFormData
+        })
+    }, []);
     return (
         <>
         <StyledDirayForm>
@@ -56,10 +72,10 @@ function DiaryForm() {
                     <Form.Control as="textarea" rows={1} value = {title} onChange = {(e) => setTitle(e.target.value)} placeholder="일기의 제목을 적어주세요" />
             </Form.Group>
             <Form.Group controlId="formFile" className="mb-3" id="formFile">
-                    <Form.Control type="file"  id="file"/>
+                    <Form.Control type="file" name ="image" id="file" hidden ref={imageInput} onChange= {onChangeImage}/>
                     <div className ="submitBtn">
                         <Button variant="outline-secondary"  onClick = {onClickImageUpload}>
-                            이미지 업로드
+                            일기 올리기
                         </Button>
                     </div>
             </Form.Group>
