@@ -23,6 +23,8 @@ db.sequelize.sync().then(()=>{
 app.use(morgan('dev'));
 app.use(express.json());  //프론트에서 json형식으로 보냈을 때 json형식의 데이터를 req.body안에 넣어준다.
 app.use(express.urlencoded({ extended : true })) //form submit 했을 때 url.encoded 방식으로 데이터가 넘어온다. 해석해줌
+//멀티파트 데이터로 받아 처리 -> multer 미들웨어로 처리 app에다 장착할 수도 있지만
+//app은 공통적용이기 때문데 보통 라우터에다가 개별 적용해 사용한다.
 
 //브라우저에서 벡엔드로 직접 요청 날릴떄 cors로 다 허용해버리면 위험하니까(보안)
 app.use(cors({
