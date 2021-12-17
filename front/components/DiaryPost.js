@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react'
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 import styled from "styled-components";
 import Comment from './Comment';
 import DiaryForm from './DiaryForm';
+import DiaryPostImage from './DiaryPostImage';
 import FollowButton from './FollowButton';
-import ImgZoom from './ImgZoom';
 const StyledDiray = styled.div`
 .header{
   margin-bottom: 15px;
@@ -44,21 +45,12 @@ const StyledDiray = styled.div`
   background: rgba(240, 240, 240, 0.7);
   padding:10px 15px;
 }
-
 `
 
 // position: absolute;
 // bottom: 40px;
 // right: 50px;
 function DiaryPost() {
-  const image = '/image/ediya.png';
-  const [imgZoom, setImgZoom] = useState(false);
-  const onZoom = useCallback(() => {
-      setImgZoom(true);
-    },[]);
-  const onClose = useCallback(() => {
-      setImgZoom(false);
-      },[])
   return (
       <>
       <DiaryForm />
@@ -74,8 +66,10 @@ function DiaryPost() {
                     <FollowButton />
                     {/* <div className="content-text">제목</div> */}
                   </div>
-                  <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
-                  {imgZoom && <ImgZoom image = {image} onClose= {onClose} />}
+                  <DiaryPostImage />
+                  {/* <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
+                  <div className = "heart"><BsHeart /></div>
+                  {imgZoom && <ImgZoom image = {image} onClose= {onClose} />} */}
                 </div>
                 <div className ="text-box">
                   <Comment /> 
