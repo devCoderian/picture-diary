@@ -36,35 +36,54 @@ export const UPLOAD_IMAGE_REQUEST = 'UPLOAD_IMAGE_REQUEST';
 export const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 export const UPLOAD_IMAGE_FAILURE = 'UPLOAD_IMAGE_FAILURE';
 
+//이미지 viewer에서 지우기
+export const REMOVE_IMAGE_REQUEST = 'REMOVE_IMAGE_REQUEST';
 
 //리듀서란 이전 상태를 액션을 통해 다름 상태로 만들어내는 함수(불변성을 지키면서)
 const reducer = (state = initialState, action) => produce(state, (draft) => {
     switch (action.type){
-        case ADD_POST_REQUEST:
+        case ADD_POST_REQUEST:{
             draft.addPostDone = false;
             draft.addPostError = null;
             draft.addPostLoading = true;
-        case ADD_POST_SUCCESS:
+            break;
+        }
+        case ADD_POST_SUCCESS:{
             draft.addPostDone = true;
             draft.addPostError = null;
             draft.addPostLoading = false;
             draft.mainPosts.unshift(action.data);
             draft.imagePath = [];
-        case ADD_POST_FAILURE:
+            break;
+        }
+        case ADD_POST_FAILURE:{
             draft.addPostError = action.error;
             draft.addPostLoading = false;
-        case UPLOAD_IMAGE_REQUEST:
+            break;
+        }
+        case UPLOAD_IMAGE_REQUEST:{
             draft.uploadImageDone = false;
             draft.uploadImageError = null;
             draft.uploadImageLoading = true;
-        case UPLOAD_IMAGE_SUCCESS:
+            break;
+        }
+        case UPLOAD_IMAGE_SUCCESS:{
             draft.uploadImageDone = true;
             draft.uploadImageError = null;
             draft.uploadImageLoading = false;
             draft.imagePath = action.data;
-        case UPLOAD_IMAGE_FAILURE:
+            break;
+        }
+        case UPLOAD_IMAGE_FAILURE:{
             draft.uploadImageError = action.error;
             draft.uploadImageLoading = false;
+            break;
+        }
+        case REMOVE_IMAGE_REQUEST:{
+            // draft.imagePath = draft.imagePath.filter((v, i)=> i !== action.data);
+            draft.imagePath = [];
+            break;
+        }
         default:break;
     }
 });
