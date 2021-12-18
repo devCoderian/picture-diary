@@ -32,34 +32,39 @@ router.post('/images', isLoggedIn, upload.single('image'),async(req, res, next)=
   res.json(req.file.filename);
 
 });
-router.post('/',isLoggedIn, async(req, res, next) => { //POST/user
+//form data multipart ->  upload.none()
+router.post('/',isLoggedIn, upload.none(), async(req, res, next) => { //POST/user
     try{
       console.log(req.body)
     const post = await Post.create({
         content: req.body.content,
         UserId: req.user.id,
       });
+      if(req.body.image){
+        const image = await image.create({ src: req.body.image});
+        await post.addImages(image)
+      }
 
-      // const fullPost = await Post.findOne({
-      //   where: { id: post.id },
-      //   include: [{
-      //     model: Image,
-      //   }, {
-      //     model: Comment,
-      //     include: [{
-      //       model: User, // 댓글 작성자
-      //       attributes: ['id', 'nickname'],
-      //     }],
-      //   }, {
-      //     model: User, // 게시글 작성자
-      //     attributes: ['id', 'nickname'],
-      //   }, {
-      //     model: User, // 좋아요 누른 사람
-      //     as: 'Likers',
-      //     attributes: ['id'],
-      //   }]
-      // })
-      res.status(201).json(post);
+      const fullPost = await Post.findOne({
+        where: { id: post.id },
+        include: [{
+          model: Image,
+        }, {
+          model: Comment,
+          include: [{
+            model: User, // 댓글 작성자
+            attributes: ['id', 'nickname'],
+          }],
+        }, {
+          model: User, // 게시글 작성자
+          attributes: ['id', 'nickname'],
+        }, {
+          model: User, // 좋아요 누른 사람
+          as: 'Likers',
+          attributes: ['id'],
+        }]
+      })
+      res.status(201).json(fullPost);
     } catch (error) {
       console.error(error);
       next(error);
