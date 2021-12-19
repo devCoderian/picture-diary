@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { BsHeart, BsHeartFill } from "react-icons/bs";
+import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import Comment from './Comment';
 import DiaryForm from './DiaryForm';
@@ -50,32 +51,33 @@ const StyledDiray = styled.div`
 // position: absolute;
 // bottom: 40px;
 // right: 50px;
-function DiaryPost() {
+function DiaryPost({post}) {
+
   return (
       <>
-      <DiaryForm />
       <StyledDiray>
      
         <div className="header">
           <h1>👁️‍🗨️ 다른 사람의 일기가 궁금한가요?</h1>
         </div>
-        {Array.from({ length: 2 }).map((_, i) => (
-              <section className ="post" key = {i+'post'}>
-                <div className ="img-box">
-                  <div className = "content">
-                    <FollowButton />
-                    {/* <div className="content-text">제목</div> */}
-                  </div>
-                  <DiaryPostImage />
-                  {/* <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
-                  <div className = "heart"><BsHeart /></div>
-                  {imgZoom && <ImgZoom image = {image} onClose= {onClose} />} */}
-                </div>
-                <div className ="text-box">
-                  <Comment /> 
-                </div>
-              </section>
-        ))}
+ 
+            <section className ="post" key = {'post'+post.id}>
+            <div className ="img-box">
+              <div className = "content">
+                <FollowButton post = {post}/>
+                {/* <div className="content-text">제목</div> */}
+              </div>
+              <DiaryPostImage post = {post}/>
+              {/* <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
+              <div className = "heart"><BsHeart /></div>
+              {imgZoom && <ImgZoom image = {image} onClose= {onClose} />} */}
+            </div>
+            <div className ="text-box">
+              <Comment post = {post}/> 
+            </div>
+          </section>
+             
+        {/* ))} */}
         </StyledDiray>
       </>
     )

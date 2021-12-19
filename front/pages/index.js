@@ -1,29 +1,50 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import DiaryForm from '../components/DiaryForm';
 import DiaryPost from '../components/DiaryPost';
 import Layout from '../components/Layout';
+import { LOAD_POSTS_REQUEST } from '../reducers/post';
+import { LOAD_USER_REQUEST } from '../reducers/user';
+
 
 const Home = () =>{
-/*
-    useEffect(() => {
-        function onScroll(){
-            console.log(window.scrollY, document.documentElement.clientHeight, document.documentElement.scrollHeight)
-            if(window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight-300){
-                if(hasMorePosts && !loadPostsLoading){
-                    dispatch({
-                        type: LOAD_POSTS_REQUEST,
-                    })
-                }
+        const dispatch = useDispatch();
+        const { me } = useSelector((state) => state.user);
+        const { mainPosts, hasMorePost, loadPostsLoading } = useSelector((state) => state.post);
+        console.log(mainPosts)
+      //getServerSideProps 이전
+        useEffect(() => {
+          dispatch({
+            type: LOAD_USER_REQUEST,
+          });
+          dispatch({
+            type: LOAD_POSTS_REQUEST,
+          });
+        }, []);
+      
+        useEffect(() => {
+          function onScroll() {
+            if (window.scrollY + document.documentElement.clientHeight > document.documentElement.scrollHeight - 300) {
+              if (hasMorePost && !loadPostsLoading) {
+                dispatch({
+                  type: LOAD_POSTS_REQUEST,
+                  data: mainPosts[mainPosts.length - 1].id,
+                });
+              }
             }
-        }
-        window.addEventListener('scroll', onScroll);
-        return () => {
-            window.removeEventListener('scroll', onScroll); 
-        }
-    }, [])
-*/
+          }
+          window.addEventListener('scroll', onScroll);
+          return () => {
+            window.removeEventListener('scroll', onScroll);
+          };
+        }, [mainPosts, hasMorePost, loadPostsLoading]);
+      
     return (
         <Layout>
-            <DiaryPost />
+            {me && <DiaryForm />}
+            {mainPosts.map((c) => (
+              <DiaryPost key={c.id} post={c} />
+            ))}
         </Layout>
     );
 };

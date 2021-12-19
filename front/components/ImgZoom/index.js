@@ -1,6 +1,7 @@
 import React from 'react'
 import { PropTypes } from 'prop-types'
 import styled from 'styled-components'
+import { backUrl } from '../../config/config'
 
 const StyledZoom = styled.div`
     position: fixed;
@@ -13,9 +14,12 @@ const StyledZoom = styled.div`
     display: flex;
     align-items: center;
     .zoom-img{
+        position: absolute;
+        background-color: #fff;
         margin: 0 auto;
-        width: 70%;
         cursor: pointer;
+        left: 30%;
+        top: 30%;
     }
     .zoom-img img{
         object-fit: cover;
@@ -31,7 +35,7 @@ function ImgZoom({ image, onClose }) {
         <StyledZoom>
             <div class = "back" onClick = {onClose}>
                 <div class = "zoom-img"> 
-                    <img src ={image} alt= "그림"/>
+                    <img src ={`${backUrl}/${image}`} alt= "그림"/>
                 </div>
             </div>
                

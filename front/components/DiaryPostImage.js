@@ -1,7 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import styled from 'styled-components';
+import { backUrl } from '../config/config';
 import ImgZoom from './ImgZoom';
+
 const StyledHeartImage = styled.button`
     font-size:35px;
     position: absolute; 
@@ -12,10 +14,11 @@ const StyledHeartImage = styled.button`
     background: none;
     border: none;
 `
-function DiaryPostImage() {
-    const image = '/image/ediya.png';
+function DiaryPostImage({post}) {
+ 
     const [imgZoom, setImgZoom] = useState(false);
     const [like, setLike] = useState(false);
+    console.log(post)
     const onLike = () => {
         setLike(!like);
     }
@@ -34,11 +37,11 @@ function DiaryPostImage() {
     return (
         // <StyledPostImage>
         <>
-        <img role = "presentation" src ='/image/ediya.png' alt= "그림" onClick = {onZoom}/>
+        <img role = "presentation" src ={`${backUrl}/${post.Images[0].src}`} alt= "그림" onClick = {onZoom} style = {{cursor:"pointer"}}/>
         <StyledHeartImage onClick = {onLike}>
             {like? <BsSuitHeartFill /> :  <BsSuitHeart/>}
         </StyledHeartImage>
-        {imgZoom && <ImgZoom image = {image} onClose= {onClose} />}
+        {imgZoom && <ImgZoom image = {post.Images[0].src} onClose= {onClose} />}
         </>
         // </StyledPostImage>
     )

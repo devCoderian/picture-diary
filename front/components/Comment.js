@@ -19,16 +19,17 @@ button{
   width:100%;
 }
 `
-function Comment() {
+function Comment({post}) {
+    console.log(post);
     return (
         <>
         <CommentBox>
-        {Array.from({ length: 20 }).map((_, idx) => (
-            <h6>{idx}nickname<span>{idx} 댓글입니다</span></h6>
+        {post.Comments.map((item) => (
+            <h6>{item.User.nickname}<span>{item.content}</span></h6>
         ))}
         </CommentBox>
            
-            <CommentForm />
+            <CommentForm post = {post}/>
        </>
     )
 }

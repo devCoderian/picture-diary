@@ -61,25 +61,35 @@ function DiaryForm() {
 
     useEffect(() => {
         if (addPostDone) {
-          setText('');
+            setTitle('');
         }
       }, [addPostDone]);
 
 
     const onSubmit = useCallback((e) => {
         e.preventDefault();
-        e.stopPropagation();
+        // e.stopPropagation();
         console.log('check', title);
         if (!title || !title.trim()) {
             return alert('게시글을 작성하세요.');
           }
+        
           const formData = new FormData();
           formData.append('image', imagePath);
           formData.append('content', title);
+          // FormData의 key 확인
+for (let key of formData.keys()) {
+  console.log(key);
+}
+        // FormData의 value 확인
+for (let value of formData.values()) {
+    console.log(value);
+  }
           return dispatch({
             type: ADD_POST_REQUEST,
-            data: title,
+            data: formData,
           });
+          
     },[title, imagePath]);
 
     const imageInput = useRef()
@@ -117,7 +127,7 @@ function DiaryForm() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1" >
                     <Form.Control as="textarea" rows={1} value = {title} onChange = {(e) => setTitle(e.target.value)} placeholder="일기의 제목을 적어주세요" />
             </Form.Group>
-            <Form.Group controlId="formFile" className="mb-3" id="formFile">
+            <Form.Group controlId="formFile" className="mb-3">
                     <Form.Control type="file" name ="image" id="file" hidden ref={imageInput} onChange= {onChangeImage}/>
                     {
                     !(imagePath.length === 0) &&(

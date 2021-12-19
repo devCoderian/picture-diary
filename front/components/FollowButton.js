@@ -22,7 +22,7 @@ button{
   font-size: 22px;
 }
 `
-function FollowButton() {
+function FollowButton({post}) {
     
   const onClick = () => {
     alert('수정, 삭제')
@@ -31,7 +31,7 @@ function FollowButton() {
         <>
           <StyledFollowButton>
             <div className="follow">
-            <h4>nickname <Badge bg="secondary" > 팔로우</Badge></h4> <button onClick = {onClick}><BsThreeDotsVertical /></button>
+            <h4>{post.User.nickname} <Badge bg="secondary" > 팔로우</Badge></h4> <button onClick = {onClick}><BsThreeDotsVertical /></button>
           </div>
           </StyledFollowButton>
            
